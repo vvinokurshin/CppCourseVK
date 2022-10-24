@@ -10,18 +10,18 @@ with open(filename, 'r') as f:
     strings = f.readlines()
 
 test_filename = strings[5].split(' ')[2][:-1]
-lines = strings[8].split(' ')
-funcs = strings[9].split(' ')
+lines = strings[13].split(' ')
+funcs = strings[14].split(' ')
 percent_lines, info_lines = float(lines[3][:-1]), ' '.join(lines[4:])[:-1]
 percent_funcs, info_funcs = float(funcs[3][:-1]), ' '.join(funcs[4:])[:-1]
 
 msg = ''
 
-if percent_lines < 90:
+if percent_lines < 70:
     msg += f'\nInsufficient coverage of code lines: '
     msg += f'{COLOR_RED}{percent_lines}% of 100% {info_lines}{COLOR_DEFAULT}'
 
-if percent_funcs < 90:
+if percent_funcs < 70:
     msg += f'\nInsufficient coverage of functions: '
     msg += f'{COLOR_RED}{percent_funcs}% of 100% {info_funcs}{COLOR_DEFAULT}'
 

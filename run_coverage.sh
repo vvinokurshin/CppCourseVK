@@ -2,7 +2,7 @@
 
 failed=0
 
-for file in hw2/build/coverage_*.txt
+for file in homework2/build/coverage_*.txt
 do
     echo $file
     python3 check_coverage.py "$file"

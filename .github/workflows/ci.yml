@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container: vvinokurshin/project_cpp:v1
-    needs: [check_style]
+    needs: 
     steps:
       - uses: actions/checkout@v3
       - run: make build
@@ -21,7 +21,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     container: vvinokurshin/project_cpp:v1
-    needs: [build]
+    needs:
     steps:
       - uses: actions/checkout@v3
       - run: make test
@@ -38,7 +38,7 @@ jobs:
   memtest:
     runs-on: ubuntu-latest
     container: vvinokurshin/project_cpp:v1
-    needs: [test]
+    needs:
     steps:
       - uses: actions/checkout@v3 
       - run: make check_mem

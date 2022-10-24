@@ -38,7 +38,7 @@ class HorizontalVector : public Vector
 {
 public:
     HorizontalVector() : Vector() {}
-    HorizontalVector(size_t n): Vector(n) {}
+    explicit HorizontalVector(size_t n): Vector(n) {}
     HorizontalVector(double *arr, size_t n): Vector(arr, n) {}
     HorizontalVector(const HorizontalVector &hVector): Vector(hVector) {}
     ~HorizontalVector() override;
@@ -59,7 +59,7 @@ class VerticalVector : public Vector
 {
 public:
     VerticalVector() : Vector() {}
-    VerticalVector(size_t n): Vector(n) {}
+    explicit VerticalVector(size_t n): Vector(n) {}
     VerticalVector(double *arr, size_t n): Vector(arr, n) {}
     VerticalVector(const VerticalVector &vVector): Vector(vVector) {}
     ~VerticalVector() override;

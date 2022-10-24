@@ -22,12 +22,12 @@ function check_log() {
 }
 
 print_header "RUN cppcheck"
-check_log "cppcheck hw2 --enable=all --inconclusive --error-exitcode=1 -I hw2/matrix_lib --suppress=missingIncludeSystem" "\(information\)"
+check_log "cppcheck homework2 --enable=all --inconclusive --error-exitcode=1 -I homework2/matrix_lib --suppress=missingIncludeSystem" "\(information\)"
 
 print_header "RUN clang-tidy"
-check_log "clang-tidy hw2/*.c hw2/matrix_lib/*.[ch] -warnings-as-errors=* -extra-arg=-std=c99 -- -Ihw2/matrix_lib" "Error (?:reading|while processing)"
+check_log "clang-tidy homework2/*.c homework2/matrix_lib/*.[ch] -warnings-as-errors=* -extra-arg=-std=c99 -- -Ihomework2/matrix_lib" "Error (?:reading|while processing)"
 
 print_header "RUN cpplint"
-check_log "cpplint --extensions=c hw2/matrix_lib/*.[ch]" "Can't open for reading"
+check_log "cpplint --extensions=c homework2/matrix_lib/*.[ch]" "Can't open for reading"
 
 print_header "SUCCESS"
