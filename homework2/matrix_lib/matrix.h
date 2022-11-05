@@ -61,4 +61,3 @@ Matrix operator+(double value, const Matrix &matrix);
 Matrix operator*(double value, const Matrix &matrix);
 Matrix operator*(const VerticalVector &vVector, const Matrix &matrix);
 Matrix operator*(const HorizontalVector &hVector, const Matrix &matrix);
-

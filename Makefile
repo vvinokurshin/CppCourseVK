@@ -20,3 +20,4 @@ check_mem: build
 
 clean: 
 	cd homework2 && rm -rf build
+	

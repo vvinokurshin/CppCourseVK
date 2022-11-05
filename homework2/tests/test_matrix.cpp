@@ -392,4 +392,3 @@ TEST(vVector, TestOperatorMulVector)
 
     EXPECT_EQ(res, mat);
 }
-

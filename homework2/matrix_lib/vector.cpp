@@ -42,11 +42,17 @@ double &Vector::operator[](size_t i)
 bool Vector::operator==(const Vector &vector) const
 {
     if (size != vector.size)
+    {
         return false;
+    }
 
     for (size_t i = 0; i < size; ++i)
+    {
         if (fabs(data[i] - vector.data[i]) > 1e-7)
+        {
             return false;
+        }
+    }
 
     return true;
 }
@@ -61,13 +67,17 @@ void Vector::operator+=(const Vector &vector)
     assert(size == vector.size);
 
     for (size_t i = 0; i < size; ++i)
+    {
         data[i] += vector.data[i];
+    }
 }
 
 void Vector::operator+=(const double value)
 {
     for (size_t i = 0; i < size; ++i)
+    {
         data[i] += value;
+    }
 }
 
 void Vector::operator-=(const Vector &vector)
@@ -75,19 +85,25 @@ void Vector::operator-=(const Vector &vector)
     assert(size == vector.size);
 
     for (size_t i = 0; i < size; ++i)
+    {
         data[i] -= vector.data[i];
+    }
 }
 
 void Vector::operator-=(const double value)
 {
     for (size_t i = 0; i < size; ++i)
+    {
         data[i] -= value;
+    }
 }
 
 void Vector::operator*=(const double value)
 {
     for (size_t i = 0; i < size; ++i)
+    {
         data[i] *= value;
+    }
 }
 
 double Vector::getSize() const
@@ -102,7 +118,9 @@ HorizontalVector HorizontalVector::operator+(const HorizontalVector &hVector) co
     HorizontalVector result(size);
 
     for (size_t i = 0; i < size; ++i)
+    {
         result[i] = data[i] + hVector.data[i];
+    }
 
     return result;
 }
@@ -112,7 +130,9 @@ HorizontalVector HorizontalVector::operator+(const double &value) const
     HorizontalVector result(size);
 
     for (size_t i = 0; i < size; ++i)
+    {
         result[i] = data[i] + value;
+    }
 
     return result;
 }
@@ -124,7 +144,9 @@ HorizontalVector HorizontalVector::operator-(const HorizontalVector &hVector) co
     HorizontalVector result(size);
 
     for (size_t i = 0; i < size; ++i)
+    {
         result[i] = data[i] - hVector.data[i];
+    }
 
     return result;
 }
@@ -134,7 +156,9 @@ HorizontalVector HorizontalVector::operator-(const double &value) const
     HorizontalVector result(size);
 
     for (size_t i = 0; i < size; ++i)
+    {
         result[i] = data[i] - value;
+    }
 
     return result;
 }
@@ -144,7 +168,9 @@ HorizontalVector HorizontalVector::operator*(const double &value) const
     HorizontalVector result(size);
 
     for (size_t i = 0; i < size; ++i)
+    {
         result[i] = value * data[i];
+    }
 
     return result;
 }
@@ -162,7 +188,9 @@ Matrix HorizontalVector::operator*(const VerticalVector &vVector) const
     result(0, 0) = 0;
 
     for (size_t i = 0; i < size; ++i)
+    {
         result(0, 0) += data[i] * vVector[i];
+    }
 
     return result;
 }
@@ -185,7 +213,9 @@ VerticalVector VerticalVector::operator+(const VerticalVector &vVector) const
     VerticalVector result(size);
 
     for (size_t i = 0; i < size; ++i)
+    {
         result[i] = data[i] + vVector.data[i];
+    }
 
     return result;
 }
@@ -195,7 +225,9 @@ VerticalVector VerticalVector::operator+(const double &value) const
     VerticalVector result(size);
 
     for (size_t i = 0; i < size; ++i)
+    {
         result[i] = data[i] + value;
+    }
 
     return result;
 }
@@ -207,7 +239,9 @@ VerticalVector VerticalVector::operator-(const VerticalVector &vVector) const
     VerticalVector result(size);
 
     for (size_t i = 0; i < size; ++i)
+    {
         result[i] = data[i] - vVector.data[i];
+    }
 
     return result;
 }
@@ -217,7 +251,9 @@ VerticalVector VerticalVector::operator-(const double &value) const
     VerticalVector result(size);
 
     for (size_t i = 0; i < size; ++i)
+    {
         result[i] = data[i] - value;
+    }
 
     return result;
 }
@@ -227,7 +263,9 @@ VerticalVector VerticalVector::operator*(const double &value) const
     VerticalVector result(size);
 
     for (size_t i = 0; i < size; ++i)
+    {
         result[i] = value * data[i];
+    }
 
     return result;
 }
@@ -243,8 +281,12 @@ Matrix VerticalVector::operator*(const HorizontalVector &hVector) const
     result(0, 0) = 0;
 
     for (size_t i = 0; i < result.getRows(); ++i)
+    {
         for (size_t j = 0; j < result.getRows(); ++j)
+        {
             result(i, j) = (*this)[i] * hVector[j];
+        }
+    }
 
     return result;
 }
