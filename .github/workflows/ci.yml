@@ -1,0 +1,45 @@
+on: push
+
+jobs:
+  check_style:
+    runs-on: ubuntu-latest
+    container: vvinokurshin/project_cpp:v1
+    steps:
+      - uses: actions/checkout@v3 
+      - run: make check_style
+  build:
+    runs-on: ubuntu-latest
+    container: vvinokurshin/project_cpp:v1
+    steps:
+      - uses: actions/checkout@v3
+      - run: make build
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          path: my/build
+  test:
+    runs-on: ubuntu-latest
+    container: vvinokurshin/project_cpp:v1
+    steps:
+      - uses: actions/checkout@v3
+      - run: make test
+      - name: Upload code coverage artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          path: my/build/report
+      - name: Upload coverage to Codecov
+        run: |
+            curl -Os https://uploader.codecov.io/latest/linux/codecov                                                
+            chmod +x codecov
+            ./codecov -t ${{ secrets.CODECOV_TOKEN }}
+      - run: make check_coverage
+  memtest:
+    runs-on: ubuntu-latest
+    container: vvinokurshin/project_cpp:v1
+    steps:
+      - uses: actions/checkout@v3 
+      - run: make check_mem
+      - name: Upload valgrind artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          path: my/build/valgrind.log
