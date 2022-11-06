@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
 project(test_matrix)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-fprofile-arcs -ftest-coverage -O0")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -coverage -lgcov" )
 
@@ -15,7 +15,7 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-add_executable(${PROJECT_NAME} test_matrix.cpp)
+add_executable(${PROJECT_NAME} test_matrix.cpp test_vector.cpp)
 target_include_directories(${PROJECT_NAME} PUBLIC ${MATRIX_LIB_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} ${MATRIX_LIB_LIBRARIES} GTest::gtest_main)
 

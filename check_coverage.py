@@ -9,9 +9,10 @@ filename = sys.argv[1]
 with open(filename, 'r') as f:
     strings = f.readlines()
 
-test_filename = strings[5].split(' ')[2][:-1]
-lines = strings[13].split(' ')
-funcs = strings[14].split(' ')
+ind = strings.index('Overall coverage rate:\n')
+
+lines = strings[ind + 1].split(' ')
+funcs = strings[ind + 2].split(' ')
 percent_lines, info_lines = float(lines[3][:-1]), ' '.join(lines[4:])[:-1]
 percent_funcs, info_funcs = float(funcs[3][:-1]), ' '.join(funcs[4:])[:-1]
 
@@ -26,8 +27,8 @@ if percent_funcs < 70:
     msg += f'{COLOR_RED}{percent_funcs}% of 100% {info_funcs}{COLOR_DEFAULT}'
 
 if msg == '':
-    print(f'\nСhecking the coverage {test_filename}: {COLOR_GREEN}PASSED{COLOR_DEFAULT}')
+    print(f'\nСhecking the coverage {filename}: {COLOR_GREEN}PASSED{COLOR_DEFAULT}')
     exit(0)
 
-print(f'\nСhecking the coverage {test_filename}: {COLOR_RED}FAILED{COLOR_DEFAULT}' + msg)
+print(f'\nСhecking the coverage {filename}: {COLOR_RED}FAILED{COLOR_DEFAULT}' + msg)
 exit(1)

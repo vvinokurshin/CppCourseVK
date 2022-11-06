@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-VALGRIND_LOG="my/build/valgrind.log"
+VALGRIND_LOG="homework2/build/valgrind.log"
 NO_LOST_PATTERN="All heap blocks were freed -- no leaks are possible"
 NO_ERROR_PATTERN="ERROR SUMMARY: 0 errors"
 

@@ -1,14 +1,15 @@
 #pragma once
 
 #include <iostream>
+#include <memory>
+
 #include "vector.h"
 
 class HorizontalVector;
 class VerticalVector;
 
-class Matrix
-{
-public:
+class Matrix {
+ public:
     Matrix() : rows(0), cols(0), data(0) {}
     Matrix(size_t n, size_t m);
     Matrix(double *arr, size_t n, size_t m);
@@ -47,10 +48,14 @@ public:
     double det() const;
     Matrix inv() const;
 
-private:
+    HorizontalVector getDiagonal() const;
+    HorizontalVector getRow(size_t i) const;
+    VerticalVector getCol(size_t j) const;
+
+ private:
     size_t rows;
     size_t cols;
-    double *data;
+    std::shared_ptr<double[]> data;
 
     void calcDet(const Matrix &matrix, double *val) const;
     Matrix delColRow(size_t row, size_t col) const;

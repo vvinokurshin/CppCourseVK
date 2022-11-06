@@ -1,4 +1,4 @@
-.PHONY: check_style build test clean check_mem
+.PHONY: check_style build test clean check_mem check_coverage
 
 check_style:
 	./run_linters.sh
