@@ -1,0 +1,39 @@
+on: push
+
+jobs:
+  check_style:
+    runs-on: ubuntu-latest
+    container: vvinokurshin/project_cpp:v1
+    steps:
+      - uses: actions/checkout@v3 
+      - run: make check_style
+  build:
+    runs-on: ubuntu-latest
+    container: vvinokurshin/project_cpp:v1
+    steps:
+      - uses: actions/checkout@v3
+      - run: make build
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          path: homework5/build
+  test:
+    runs-on: ubuntu-latest
+    container: vvinokurshin/project_cpp:v1
+    steps:
+      - uses: actions/checkout@v3
+      - run: make test
+      - name: Upload code coverage artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          path: homework5/build/report
+  memtest:
+    runs-on: ubuntu-latest
+    container: vvinokurshin/project_cpp:v1
+    steps:
+      - uses: actions/checkout@v3 
+      - run: make check_mem
+      - name: Upload valgrind artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          path: homework5/build/valgrind.log
