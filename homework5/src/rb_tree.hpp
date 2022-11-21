@@ -61,12 +61,12 @@ class RBTree {
         explicit const_iterator(const iterator &);
         const_iterator &operator=(const const_iterator &);
 
-        const_iterator &operator++();
-        const_iterator operator++(int);
+        const_iterator &operator++() const;
+        const_iterator operator++(int) const;
         reference operator*() const;
         pointer operator->() const;
-        const_iterator &operator--();
-        const_iterator operator--(int);
+        const_iterator &operator--() const;
+        const_iterator operator--(int) const;
 
         bool operator==(const_iterator other) const;
         bool operator!=(const_iterator other) const;
@@ -99,17 +99,19 @@ class RBTree {
 
     bool insert(T value);
     bool remove(T value);
-    RBNode<T> *search(T value);
+    RBNode<T> *search(T value) const;
 
     void print();
+
+    RBNode<T> *getMin() const;
+    RBNode<T> *getMax() const;
+    RBNode<T> *getLast() const;
 
  private:
     RBNode<T> *root;
     RBNode<T> *super_root;
 
     RBNode<T> *copy(const RBNode<T> *other, RBNode<T> *parent);
-    RBNode<T> *getMin() const;
-    RBNode<T> *getMax() const;
 
     void leftRotate(RBNode<T> *x);
     void rightRotate(RBNode<T> *y);
@@ -240,7 +242,7 @@ RBTree<T, Comparator>::const_iterator::operator=(const const_iterator &other) {
 }
 
 template <class T, class Comparator>
-typename RBTree<T, Comparator>::const_iterator &RBTree<T, Comparator>::const_iterator::operator++() {
+typename RBTree<T, Comparator>::const_iterator &RBTree<T, Comparator>::const_iterator::operator++() const {
     if (cur->left) {
         cur = cur->right;
 
@@ -264,7 +266,7 @@ typename RBTree<T, Comparator>::const_iterator &RBTree<T, Comparator>::const_ite
 }
 
 template <class T, class Comparator>
-typename RBTree<T, Comparator>::const_iterator RBTree<T, Comparator>::const_iterator::operator++(int) {
+typename RBTree<T, Comparator>::const_iterator RBTree<T, Comparator>::const_iterator::operator++(int) const {
     RBNode<T> *tmp = cur;
     const_iterator it(tmp);
     ++(*this);
@@ -273,7 +275,7 @@ typename RBTree<T, Comparator>::const_iterator RBTree<T, Comparator>::const_iter
 }
 
 template <class T, class Comparator>
-typename RBTree<T, Comparator>::const_iterator &RBTree<T, Comparator>::const_iterator::operator--() {
+typename RBTree<T, Comparator>::const_iterator &RBTree<T, Comparator>::const_iterator::operator--() const {
     if (cur->left) {
         cur = cur->left;
 
@@ -297,7 +299,7 @@ typename RBTree<T, Comparator>::const_iterator &RBTree<T, Comparator>::const_ite
 }
 
 template <class T, class Comparator>
-typename RBTree<T, Comparator>::const_iterator RBTree<T, Comparator>::const_iterator::operator--(int) {
+typename RBTree<T, Comparator>::const_iterator RBTree<T, Comparator>::const_iterator::operator--(int) const {
     RBNode<T> *tmp = cur;
     const_iterator it(tmp);
     --(*this);
@@ -334,7 +336,7 @@ typename RBTree<T, Comparator>::iterator RBTree<T, Comparator>::begin() const {
 
 template <class T, class Comparator>
 typename RBTree<T, Comparator>::iterator RBTree<T, Comparator>::end() const {
-    return iterator(super_root);
+    return iterator(getLast());
 }
 
 template <class T, class Comparator>
@@ -412,11 +414,11 @@ RBNode<T> *RBTree<T, Comparator>::copy(const RBNode<T> *other, RBNode<T> *parent
 
 template <class T, class Comparator>
 RBTree<T, Comparator>::~RBTree() {
-    destory(root);
+    destory(super_root);
 }
 
 template <class T, class Comparator>
-RBNode<T> *RBTree<T, Comparator>::search(T value) {
+RBNode<T> *RBTree<T, Comparator>::search(T value) const {
     return search(root, value);
 }
 
@@ -508,6 +510,7 @@ bool RBTree<T, Comparator>::insert(RBNode<T> *node) {
         parent = cur;
 
         if (!cmp(node->data, cur->data) && !cmp(cur->data, node->data)) {
+            delete node;
             return false;
         }
 
@@ -533,7 +536,6 @@ bool RBTree<T, Comparator>::insert(RBNode<T> *node) {
             parent->right = node;
         }
     } else {
-
         root = node;
         super_root->left = root;
     }
@@ -544,10 +546,10 @@ bool RBTree<T, Comparator>::insert(RBNode<T> *node) {
 
 template <class T, class Comparator>
 void RBTree<T, Comparator>::InsertFixUp(RBNode<T> *node) {
-    RBNode<T> *parent = node->parent; // 2
+    RBNode<T> *parent = node->parent;
 
     while (node != root && parent->color == Red) {
-        RBNode<T> *gparent = parent->parent; // 1
+        RBNode<T> *gparent = parent->parent;
 
         if (gparent->left == parent) {
             RBNode<T> *uncle = gparent->right;
@@ -615,7 +617,7 @@ void RBTree<T, Comparator>::remove(RBNode<T> *node) {
     Color color;
 
     if (node->left && node->right) {
-        RBNode<T> *replace = node->right; // 5
+        RBNode<T> *replace = node->right;
 
         while (replace->left) {
             replace = replace->left;
@@ -628,13 +630,12 @@ void RBTree<T, Comparator>::remove(RBNode<T> *node) {
                 node->parent->right = replace;
             }
         } else {
-            root = replace;          // 5
-            super_root->left = root; // на 5
-            //
+            root = replace;
+            super_root->left = root;
         }
 
-        child = replace->right;   // 10
-        parent = replace->parent; // 3
+        child = replace->right;
+        parent = replace->parent;
         color = replace->color;
 
         if (parent == node) {
@@ -681,7 +682,6 @@ void RBTree<T, Comparator>::remove(RBNode<T> *node) {
             parent->right = child;
         }
     } else {
-
         root = child;
         super_root->left = root;
     }
@@ -819,4 +819,9 @@ RBNode<T> *RBTree<T, Comparator>::getMax() const {
     }
 
     return cur;
+}
+
+template <class T, class Comparator>
+RBNode<T> *RBTree<T, Comparator>::getLast() const {
+    return super_root;
 }

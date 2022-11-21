@@ -21,9 +21,6 @@ function check_log() {
     fi
 }
 
-print_header "RUN cppcheck"
-check_log "cppcheck homework5 --enable=all --inconclusive --error-exitcode=1 -I homework5/src --suppress=missingIncludeSystem" "\(information\)"
-
 print_header "RUN clang-tidy"
 check_log "clang-tidy homework5/*.cpp homework5/src/*.hpp -checks=-*,clang-analyzer-*,-clang-analyzer-cplusplus* -warnings-as-errors=* -extra-arg=-std=c++17 -- -Ihomework5/src" "Error (?:reading|while processing)"
 
