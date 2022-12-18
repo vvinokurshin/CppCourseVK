@@ -1,0 +1,27 @@
+on: push
+
+jobs:
+  check_style:
+    runs-on: ubuntu-latest
+    container: vvinokurshin/project_cpp:v1
+    steps:
+      - uses: actions/checkout@v3 
+      - run: make check_style
+  build:
+    runs-on: ubuntu-latest
+    container: vvinokurshin/project_cpp:v1
+    steps:
+      - uses: actions/checkout@v3
+      - run: make build
+  test:
+    runs-on: ubuntu-latest
+    container: vvinokurshin/project_cpp:v1
+    steps:
+      - uses: actions/checkout@v3
+      - run: make test
+  memtest:
+    runs-on: ubuntu-latest
+    container: vvinokurshin/project_cpp:v1
+    steps:
+      - uses: actions/checkout@v3 
+      - run: make check_mem
