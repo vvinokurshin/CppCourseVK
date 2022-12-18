@@ -8,7 +8,7 @@ build:
 
 test:
 	cd homework5 && mkdir -p build && cd build && cmake -DTEST_MODE=ON .. && cmake --build .
-	cd homework5/build && ctest -V
+	cd homework5/build && ./tests/test_set
 
 check_mem: build
 	./run_memtest.sh homework5/build/tests/test_set

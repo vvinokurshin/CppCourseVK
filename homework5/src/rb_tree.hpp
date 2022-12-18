@@ -383,9 +383,15 @@ template <class T, class Comparator>
 RBTree<T, Comparator> &RBTree<T, Comparator>::operator=(const RBTree &other) {
     if (this != &other) {
         cmp = other.cmp;
-        super_root = new RBNode<T>(0, Black, nullptr, nullptr, nullptr);
-        root = copy(other.root, super_root);
-        super_root->left = root;
+
+        if (root) {
+            super_root = new RBNode<T>(T(), Black, nullptr, nullptr, nullptr);
+            root = copy(other.root, super_root);
+            super_root->left = root;
+        } else {
+            root = 0;
+            super_root = 0;
+        }
     }
 
     return *this;
@@ -393,7 +399,7 @@ RBTree<T, Comparator> &RBTree<T, Comparator>::operator=(const RBTree &other) {
 
 template <class T, class Comparator>
 RBTree<T, Comparator>::RBTree(const RBTree &other) : cmp(other.cmp) {
-    super_root = new RBNode<T>(0, Black, nullptr, nullptr, nullptr);
+    super_root = new RBNode<T>(T(), Black, nullptr, nullptr, nullptr);
     root = copy(other.root, super_root);
     super_root->left = root;
 }
@@ -424,7 +430,7 @@ RBNode<T> *RBTree<T, Comparator>::search(T value) const {
 
 template <class T, class Comparator>
 RBNode<T> *RBTree<T, Comparator>::search(RBNode<T> *node, T value) const {
-    if (node == nullptr || node->data == value) {
+    if (node == nullptr || !cmp(node->data, value) && !cmp(value, node->data)) {
         return node;
     }
 
@@ -494,7 +500,7 @@ bool RBTree<T, Comparator>::insert(T value) {
     RBNode<T> *node = new RBNode<T>(value, Red, nullptr, nullptr, nullptr);
 
     if (!root) {
-        super_root = new RBNode<T>(0, Black, node, nullptr, nullptr);
+        super_root = new RBNode<T>(T(), Black, node, nullptr, nullptr);
         node->parent = super_root;
     }
 
@@ -801,6 +807,10 @@ void RBTree<T, Comparator>::destory(RBNode<T> *node) {
 
 template <class T, class Comparator>
 RBNode<T> *RBTree<T, Comparator>::getMin() const {
+    if (!root) {
+        return nullptr;
+    }
+
     RBNode<T> *cur = root;
 
     while (cur->left) {
@@ -812,6 +822,10 @@ RBNode<T> *RBTree<T, Comparator>::getMin() const {
 
 template <class T, class Comparator>
 RBNode<T> *RBTree<T, Comparator>::getMax() const {
+    if (!root) {
+        return nullptr;
+    }
+
     RBNode<T> *cur = root;
 
     while (cur->right) {

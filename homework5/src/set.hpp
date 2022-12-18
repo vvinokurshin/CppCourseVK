@@ -73,7 +73,7 @@ class set {
     set(Iter ibegin, Iter iend);
     explicit set(std::initializer_list<T> list);
     set(const set &other);
-    ~set() = default;
+    // ~set() = default;
 
     set &operator=(const set &);
 
@@ -274,6 +274,7 @@ set<T, Comparator>::set(const set &other) : cmp(other.cmp), tree(other.tree), se
 template <class T, class Comparator>
 set<T, Comparator> &set<T, Comparator>::operator=(const set &other) {
     if (this != &other) {
+        tree.~RBTree();
         cmp = other.cmp;
         setSize = other.setSize;
         tree = other.tree;
@@ -285,14 +286,14 @@ set<T, Comparator> &set<T, Comparator>::operator=(const set &other) {
 template <class T, class Comparator>
 void set<T, Comparator>::insert(T value) {
     if (tree.insert(value)) {
-        setSize++;
+        ++setSize;
     }
 }
 
 template <class T, class Comparator>
 void set<T, Comparator>::erase(T value) {
     if (tree.remove(value)) {
-        setSize--;
+        --setSize;
     }
 }
 

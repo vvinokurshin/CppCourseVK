@@ -23,6 +23,14 @@ TEST(TestConstruct, TwoIterators) {
     }
 }
 
+TEST(TestConstInterators, Simple) {
+    std::vector<int> data = {3, 2, 1, 4};
+    set<int> my_s(data.begin(), data.end());
+    std::set<int> std_s(data.begin(), data.end());
+
+    EXPECT_EQ(*my_s.cbegin(), *std_s.cbegin());
+}
+
 TEST(TestConstruct, InitializerList) {
     std::initializer_list<int> list = {5, 1, 3, 2, 6};
     set<int> my_s(list);
