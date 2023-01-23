@@ -1,0 +1,8 @@
+[{ "username": "valera", "email": "valera@", "password": "12345678"},
+{ "username": "dima", "email": "dima@", "password": "12345678"},
+{ "username": "kolya", "email": "kolya@", "password": "12345678"},
+{"username": "slavaShagalov", "email": "slava@yandex.ru", "password": "slava1234"},
+{"username": "alexOparin", "email": "sasha@mail.ru", "password": "sasha1234"},
+{"username": "goshaK", "email": "gosha@yandex.ru", "password": "gosha1234"},
+{"username": "dimaPeshkov", "email": "dima@yandex.ru", "password": "dima1234"},
+{"username": "yaroslavBairamgalin", "email": "yarik@yandex.ru", "password": "yarik1234"}]

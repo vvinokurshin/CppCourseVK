@@ -1,0 +1,14 @@
+[
+    {
+        "name": "to do",
+        "card_id": 1
+    },
+    {
+        "name": "steps",
+        "card_id": 5
+    },
+    {
+        "name": "progress",
+        "card_id": 7
+    }
+]

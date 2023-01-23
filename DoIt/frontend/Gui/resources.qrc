@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/rec"/>
+    <qresource prefix="/">
+        <file>img/add_user_icon.png</file>
+        <file>img/arrow_icon.png</file>
+        <file>img/avatar_icon.png</file>
+        <file>img/default_board_image.jpg</file>
+        <file>img/default_user_icon.png</file>
+        <file>img/more_icon.png</file>
+        <file>img/plus_icon.png</file>
+        <file>img/programm_icon.jpg</file>
+    </qresource>
+</RCC>

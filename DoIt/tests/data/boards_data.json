@@ -1,0 +1,22 @@
+[
+    {
+        "name": "projects",
+        "caption": "my_projects"
+    },
+    {
+        "name": "business",
+        "caption": "my_business"
+    },
+    {
+        "name": "team",
+        "caption": "out_team"
+    },
+    {
+        "name": "technopark",
+        "caption": "our team of VK"
+    },
+    {
+        "name": "school routine",
+        "caption": "all things at school"
+    }
+]

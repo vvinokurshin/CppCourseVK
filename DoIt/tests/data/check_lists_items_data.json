@@ -1,0 +1,32 @@
+[
+    {
+        "name": "step1",
+        "is_checked": true,
+        "check_list_id": 2
+    },
+    {
+        "name": "step2",
+        "is_checked": true,
+        "check_list_id": 2
+    },
+    {
+        "name": "step3",
+        "is_checked": true,
+        "check_list_id": 2
+    },
+    {
+        "name": "1",
+        "is_checked": true,
+        "check_list_id": 1
+    },
+    {
+        "name": "2",
+        "is_checked": false,
+        "check_list_id": 1
+    },
+    {
+        "name": "100%",
+        "is_checked": false,
+        "check_list_id": 3
+    }
+]

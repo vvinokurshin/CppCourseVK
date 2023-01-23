@@ -1,0 +1,67 @@
+on: push
+
+jobs:
+  check_style:
+    name: Static formatters and analyzers
+    runs-on: ubuntu-latest
+    container: vvinokurshin/project_cpp:v3
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run formatters and analyzers before build
+        run: |
+          chmod -R 755 ./linters && make check_before_build
+
+      - name: Run formatters and analyzers after build
+        run: |
+          chmod -R 755 ./linters && make check_object_files
+  build:
+    runs-on: ubuntu-latest
+    container: vvinokurshin/project_cpp:v3
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build
+        run: make build
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: artifacts
+          path: ./DoIt/build/
+  test:
+    runs-on: ubuntu-latest
+    container: vvinokurshin/project_cpp:v3
+    needs: [build]
+    steps:
+      - uses: actions/checkout@v3
+      - run: make test
+      - name: Upload code coverage artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          path: DoIt/build/report
+      - name: Upload coverage to Codecov
+        run: |
+            curl -Os https://uploader.codecov.io/latest/linux/codecov                                                
+            chmod +x codecov
+            ./codecov -t ${{ secrets.CODECOV_TOKEN }}
+      - run: make check_coverage
+
+  memtest:
+    runs-on: ubuntu-latest
+    container: vvinokurshin/project_cpp:v3
+    needs: [build]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: artifacts
+          path: .DoIt/build/
+      - name: Run valgrind
+        run: make memtest_valgrind
+      - name: Run sanitizers
+        run: make memtest_sanitizers
+      - name: Upload valgrind arfifacts
+        uses: actions/upload-artifact@v3
+        with:
+          path: unit_tests_valgrind.xml
